@@ -14,34 +14,22 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['tasks'],
-};
 
-// 1. Конфігурація для persisting
 const contactsPersistConfig = {
   key: 'contacts',
   storage,
-  whitelist: ['items'], // зберігаємо тільки поле items
+  whitelist: ['items'], 
 };
 
-// 2. Комбінуємо ред'юсери
+
 const rootReducer = combineReducers({
   contacts: persistReducer(contactsPersistConfig, contactsReducer), // persist тільки tasks.items
-  filters: filtersReducer, // фільтри не потрібно зберігати
+  filters: filtersReducer,
 });
 
-// 3. Створюємо store
-// export const store = configureStore({
-//   reducer: rootReducer,
-// });
-// // 4. Створюємо persistor
-// export const persistor = persistStore(store);
-
+// Створюємо store
 export const store = configureStore({
-  reducer: persistReducer(persistConfig, rootReducer),
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -51,4 +39,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-export default store;

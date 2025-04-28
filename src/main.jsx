@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './components/App';
 
 
+
 //Рендеринг React-додатка:
 ReactDOM.createRoot(document.getElementById('root')).render(
 
